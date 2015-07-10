@@ -11,21 +11,16 @@ http.createServer()
 
     req.on('end', function() {
 
-      if (req.url == '/upload' && req.method == 'POST') {
-        console.log('Получен файл');
-
-        res.writeHead(200, 'OK');
-        res.end();
-
-        return;
-      }
-
-      if (req.method != 'GET') {
-        res.writeHead(405, 'Method Not Allowed', {
-          'Allow': 'GET'
+      if (req.url == '/time') {
+        res.writeHead(200, {
+          'Content-Type': 'text/plain'
         });
-        res.end();
 
+        res.end(JSON.stringify({
+          time: Date.now(),
+          zone: new Date().getTimezoneOffset()
+        }));
+        
         return;
       }
 
